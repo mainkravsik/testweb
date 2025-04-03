@@ -1,0 +1,86 @@
+@page
+@model TestForMax.Pages.Projects.Endpoints.CreateModel
+@{
+    ViewData["Title"] = "Добавление API эндпоинта";
+}
+
+<div class="container">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-page="/Projects/Index">Проекты</a></li>
+            <li class="breadcrumb-item"><a asp-page="/Projects/Details" asp-route-id="@Model.ProjectId">@Model.CurrentProject?.Name</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Добавление API эндпоинта</li>
+        </ol>
+    </nav>
+
+    <h1>Добавление API эндпоинта</h1>
+
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Данные API эндпоинта</h5>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="ProjectId" />
+                        
+                        <div class="mb-3">
+                            <label asp-for="ApiEndpoint.HttpMethod" class="form-label">HTTP метод</label>
+                            <select asp-for="ApiEndpoint.HttpMethod" class="form-select">
+                                <option value="GET">GET</option>
+                                <option value="POST">POST</option>
+                                <option value="PUT">PUT</option>
+                                <option value="DELETE">DELETE</option>
+                                <option value="PATCH">PATCH</option>
+                                <option value="HEAD">HEAD</option>
+                                <option value="OPTIONS">OPTIONS</option>
+                            </select>
+                            <span asp-validation-for="ApiEndpoint.HttpMethod" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label asp-for="ApiEndpoint.Endpoint" class="form-label">Эндпоинт</label>
+                            <div class="input-group">
+                                <span class="input-group-text">@Model.CurrentProject?.BaseUrl</span>
+                                <input asp-for="ApiEndpoint.Endpoint" class="form-control" placeholder="/api/resource" />
+                            </div>
+                            <span asp-validation-for="ApiEndpoint.Endpoint" class="text-danger"></span>
+                            <div class="form-text">Укажите относительный путь эндпоинта (например: /api/users)</div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label asp-for="ApiEndpoint.RequestConfig" class="form-label">JSON конфигурация запроса</label>
+                            <textarea asp-for="ApiEndpoint.RequestConfig" class="form-control json-textarea" rows="8" placeholder='{ "key": "value" }'></textarea>
+                            <span asp-validation-for="ApiEndpoint.RequestConfig" class="text-danger"></span>
+                            <div class="form-text">Укажите JSON тело запроса, если необходимо</div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <button type="submit" class="btn btn-primary">Создать</button>
+                            <a asp-page="/Projects/Details" asp-route-id="@Model.ProjectId" class="btn btn-secondary">Отмена</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card shadow">
+                <div class="card-header bg-info text-white">
+                    <h5 class="mb-0">Подсказка</h5>
+                </div>
+                <div class="card-body">
+                    <p>Указывайте относительный путь в поле "Эндпоинт".</p>
+                    <p>Например, если ваш базовый URL <code>https://api.example.com</code> и вы хотите обратиться к <code>/users/123</code>, в поле эндпоинт укажите только <code>/users/123</code>.</p>
+                    <p>Для методов POST, PUT и PATCH можно указать JSON в поле "JSON конфигурация запроса".</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

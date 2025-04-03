@@ -1,0 +1,112 @@
+# Папки сборки
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+# Файлы Visual Studio
+.vs/
+*.user
+*.userosscache
+*.suo
+*.userprefs
+*.vspscc
+*.vssscc
+.vscode/
+*_i.c
+*_p.c
+*_h.h
+*.ilk
+*.meta
+*.obj
+*.iobj
+*.pch
+*.pdb
+*.ipdb
+*.pgc
+*.pgd
+*.rsp
+*.sbr
+*.tlb
+*.tli
+*.tlh
+*.tmp
+*.tmp_proj
+*_wpftmp.csproj
+*.log
+*.tlog
+*.vspscc
+*.vssscc
+.builds
+*.pidb
+*.svclog
+*.scc
+
+# Файлы .NET Core
+project.lock.json
+project.fragment.lock.json
+artifacts/
+**/Properties/launchSettings.json
+
+# Специфические файлы ASP.NET
+appsettings.Development.json
+appsettings.*.json
+!appsettings.json
+*.Development.json
+
+# Локальная база данных и файлы миграций
+*.db
+*.sqlite
+*.sqlite3
+*.mdf
+*.ldf
+*.ndf
+
+# Файлы, связанные с NuGet
+*.nuget.props
+*.nuget.targets
+*.nupkg
+**/packages/*
+
+# Файлы, связанные с PostgreSQL
+*.pgsql
+*.pgdump
+
+# Файлы сессий и кэша
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# Файлы локализации
+*.jfm
+
+# Папки для фронтенда
+node_modules/
+bower_components/
+wwwroot/lib/
+wwwroot/dist/
+
+# Файлы покрытия кода
+*.coverage
+*.coveragexml
+
+# Временные файлы и папки
+.tmp/
+temp/
+tmp/
+
+# Visual Studio Code
+.vscode/
+
+# Rider
+.idea/
+
+# Файлы сборки и публикации
+.publish/
+**/publish/
+**/PublishOutput/
+**/publishlogs/
+
+# StyleCop
+StyleCopReport.xml 

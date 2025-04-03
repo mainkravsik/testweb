@@ -1,0 +1,45 @@
+@page "{id:int}"
+@model TestForMax.Pages.Projects.DeleteModel
+@{
+    ViewData["Title"] = "Удаление проекта";
+}
+
+<div class="container">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-page="./Index">Проекты</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Удаление</li>
+        </ol>
+    </nav>
+
+    <h1>Удаление проекта</h1>
+
+    <div class="alert alert-danger mb-4">
+        <h4 class="alert-heading">Вы уверены, что хотите удалить этот проект?</h4>
+        <p>Это действие нельзя будет отменить. Все API эндпоинты, связанные с этим проектом, также будут удалены.</p>
+    </div>
+
+    <div class="card shadow mb-4">
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">Информация о проекте</h5>
+        </div>
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-3">Название:</dt>
+                <dd class="col-sm-9">@Model.Project.Name</dd>
+                
+                <dt class="col-sm-3">Base URL:</dt>
+                <dd class="col-sm-9">@Model.Project.BaseUrl</dd>
+                
+                <dt class="col-sm-3">Создан:</dt>
+                <dd class="col-sm-9">@Model.Project.CreatedAt.ToString("dd.MM.yyyy HH:mm")</dd>
+            </dl>
+        </div>
+    </div>
+
+    <form method="post">
+        <input type="hidden" asp-for="Project.Id" />
+        <button type="submit" class="btn btn-danger">Удалить</button>
+        <a asp-page="./Index" class="btn btn-secondary">Отмена</a>
+    </form>
+</div> 

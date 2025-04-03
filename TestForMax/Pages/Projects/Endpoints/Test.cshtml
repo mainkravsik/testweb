@@ -1,0 +1,141 @@
+@page
+@model TestForMax.Pages.Projects.Endpoints.TestModel
+@{
+    ViewData["Title"] = "Тестирование API эндпоинта";
+}
+
+<div class="container">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-page="/Projects/Index">Проекты</a></li>
+            <li class="breadcrumb-item"><a asp-page="/Projects/Details" asp-route-id="@Model.ProjectId">@Model.Project.Name</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Тест API: @Model.ApiEndpoint.HttpMethod @Model.ApiEndpoint.Endpoint</li>
+        </ol>
+    </nav>
+
+    <h1>Тестирование API эндпоинта</h1>
+
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">@Model.ApiEndpoint.HttpMethod @Model.Project.BaseUrl@Model.ApiEndpoint.Endpoint</h5>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        <input type="hidden" asp-for="ProjectId" />
+                        <input type="hidden" asp-for="Id" />
+                        
+                        @if (Model.ApiEndpoint.HttpMethod != "GET" && Model.ApiEndpoint.HttpMethod != "HEAD")
+                        {
+                            <div class="mb-3">
+                                <label asp-for="RequestConfig" class="form-label">JSON тело запроса</label>
+                                <textarea asp-for="RequestConfig" class="form-control" rows="8"></textarea>
+                            </div>
+                        }
+                        
+                        <div class="mb-3">
+                            <button type="submit" class="btn btn-success">
+                                <i class="fas fa-play"></i> Выполнить запрос
+                            </button>
+                            <a asp-page="/Projects/Details" asp-route-id="@Model.ProjectId" class="btn btn-secondary">Назад к проекту</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @if (Model.HasResponse)
+    {
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card shadow">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        @if (string.IsNullOrEmpty(Model.RequestError))
+                        {
+                            <h5 class="mb-0">
+                                Ответ: 
+                                @if (Model.StatusCode >= 200 && Model.StatusCode < 300)
+                                {
+                                    <span class="badge bg-success">@Model.StatusCode @Model.StatusMessage</span>
+                                }
+                                else if (Model.StatusCode >= 300 && Model.StatusCode < 400)
+                                {
+                                    <span class="badge bg-info">@Model.StatusCode @Model.StatusMessage</span>
+                                }
+                                else if (Model.StatusCode >= 400 && Model.StatusCode < 500)
+                                {
+                                    <span class="badge bg-warning">@Model.StatusCode @Model.StatusMessage</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-danger">@Model.StatusCode @Model.StatusMessage</span>
+                                }
+                            </h5>
+                        }
+                        else
+                        {
+                            <h5 class="mb-0 text-danger">Ошибка запроса: @Model.RequestError</h5>
+                        }
+                    </div>
+                    
+                    @if (string.IsNullOrEmpty(Model.RequestError))
+                    {
+                        <div class="card-body">
+                            <ul class="nav nav-tabs" id="responseTab" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link active" id="body-tab" data-bs-toggle="tab" data-bs-target="#body" type="button" role="tab" aria-controls="body" aria-selected="true">Тело ответа</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="headers-tab" data-bs-toggle="tab" data-bs-target="#headers" type="button" role="tab" aria-controls="headers" aria-selected="false">Заголовки</button>
+                                </li>
+                            </ul>
+                            <div class="tab-content" id="responseTabContent">
+                                <div class="tab-pane fade show active" id="body" role="tabpanel" aria-labelledby="body-tab">
+                                    <pre class="mt-3 bg-light p-3 rounded"><code>@Model.ResponseBody</code></pre>
+                                </div>
+                                <div class="tab-pane fade" id="headers" role="tabpanel" aria-labelledby="headers-tab">
+                                    <div class="table-responsive mt-3">
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>Заголовок</th>
+                                                    <th>Значение</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var header in Model.ResponseHeaders)
+                                                {
+                                                    <tr>
+                                                        <td>@header.Key</td>
+                                                        <td>@string.Join(", ", header.Value)</td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Активация вкладок Bootstrap
+            var tabEl = document.querySelector('a[data-bs-toggle="tab"]')
+            if (tabEl) {
+                var tab = new bootstrap.Tab(tabEl);
+                tab.show();
+            }
+        });
+    </script>
+} 

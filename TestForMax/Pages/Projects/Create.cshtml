@@ -1,0 +1,79 @@
+@page
+@model TestForMax.Pages.Projects.CreateModel
+@{
+    ViewData["Title"] = "Создание проекта";
+}
+
+<div class="container">
+    <h1>Создание проекта</h1>
+
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Данные проекта</h5>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        
+                        <div class="mb-3">
+                            <label asp-for="Project.Name" class="form-label">Название</label>
+                            <input asp-for="Project.Name" class="form-control" />
+                            <span asp-validation-for="Project.Name" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label asp-for="Project.BaseUrl" class="form-label">Base URL</label>
+                            <input asp-for="Project.BaseUrl" class="form-control" placeholder="https://api.example.com" />
+                            <span asp-validation-for="Project.BaseUrl" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label asp-for="Project.AuthToken" class="form-label">Токен авторизации</label>
+                            <textarea asp-for="Project.AuthToken" class="form-control" rows="3" placeholder="Bearer eyJhbGc..."></textarea>
+                            <span asp-validation-for="Project.AuthToken" class="text-danger"></span>
+                            <div class="form-text">Токен авторизации в формате Bearer</div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label asp-for="Project.Cookies" class="form-label">Куки</label>
+                            <textarea asp-for="Project.Cookies" class="form-control" rows="3" placeholder="cookie1=value1; cookie2=value2"></textarea>
+                            <span asp-validation-for="Project.Cookies" class="text-danger"></span>
+                            <div class="form-text">Куки в формате cookie1=value1; cookie2=value2</div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <button type="submit" class="btn btn-primary">Создать</button>
+                            <a asp-page="Index" class="btn btn-secondary">Отмена</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card shadow">
+                <div class="card-header bg-info text-white">
+                    <h5 class="mb-0">Как получить данные</h5>
+                </div>
+                <div class="card-body">
+                    <p>Вы можете получить токен авторизации и куки из браузера, скопировав запрос curl.</p>
+                    <p>Инструкция:</p>
+                    <ol>
+                        <li>Откройте DevTools (F12)</li>
+                        <li>Перейдите на вкладку Network</li>
+                        <li>Выполните запрос к нужному API</li>
+                        <li>Щелкните правой кнопкой мыши на запросе</li>
+                        <li>Выберите "Copy as cURL"</li>
+                        <li>Вставьте в текстовый редактор и найдите заголовки Authorization и Cookie</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+} 

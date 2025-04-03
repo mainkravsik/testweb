@@ -1,0 +1,66 @@
+@page "{id:int}"
+@model TestForMax.Pages.Projects.EditModel
+@{
+    ViewData["Title"] = "Редактирование проекта";
+}
+
+<div class="container">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-page="./Index">Проекты</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Редактирование</li>
+        </ol>
+    </nav>
+
+    <h1>Редактирование проекта</h1>
+
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Данные проекта</h5>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        
+                        <div class="mb-3">
+                            <label asp-for="Project.Name" class="form-label">Название</label>
+                            <input asp-for="Project.Name" class="form-control" />
+                            <span asp-validation-for="Project.Name" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label asp-for="Project.BaseUrl" class="form-label">Base URL</label>
+                            <input asp-for="Project.BaseUrl" class="form-control" placeholder="https://api.example.com" />
+                            <span asp-validation-for="Project.BaseUrl" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label asp-for="Project.AuthToken" class="form-label">Токен авторизации</label>
+                            <textarea asp-for="Project.AuthToken" class="form-control" rows="3" placeholder="Bearer eyJhbGc..."></textarea>
+                            <span asp-validation-for="Project.AuthToken" class="text-danger"></span>
+                            <div class="form-text">Токен авторизации в формате Bearer</div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label asp-for="Project.Cookies" class="form-label">Куки</label>
+                            <textarea asp-for="Project.Cookies" class="form-control" rows="3" placeholder="cookie1=value1; cookie2=value2"></textarea>
+                            <span asp-validation-for="Project.Cookies" class="text-danger"></span>
+                            <div class="form-text">Куки в формате cookie1=value1; cookie2=value2</div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <button type="submit" class="btn btn-primary">Сохранить</button>
+                            <a asp-page="./Index" class="btn btn-secondary">Отмена</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+} 

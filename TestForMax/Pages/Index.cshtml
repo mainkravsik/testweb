@@ -1,0 +1,37 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Система тестирования API";
+}
+
+<div class="container">
+    <h1 class="display-4 mb-4">Система тестирования API</h1>
+    
+    <div class="card shadow mb-4">
+        <div class="card-header bg-primary text-white">
+            <h2 class="h5 mb-0">Описание работы с системой</h2>
+        </div>
+        <div class="card-body">
+            <p>Эта система предназначена для тестирования API ваших сервисов, используя токен авторизации Bearer и куки.</p>
+            
+            <h3 class="h5 mt-4">Основные возможности:</h3>
+            <ul>
+                <li>Создание проектов с указанием URL, токена авторизации и кук</li>
+                <li>Добавление API-эндпоинтов к проектам</li>
+                <li>Тестирование API-запросов с использованием указанных настроек</li>
+            </ul>
+            
+            <h3 class="h5 mt-4">Как использовать:</h3>
+            <ol>
+                <li>Создайте новый проект, указав название и базовый URL</li>
+                <li>Скопируйте токен авторизации и куки из вашего браузера (из запроса curl)</li>
+                <li>Добавьте API-эндпоинты, указав HTTP-метод, путь и JSON-конфигурацию</li>
+                <li>Тестируйте ваши API-эндпоинты прямо из системы</li>
+            </ol>
+        </div>
+    </div>
+    
+    <div class="text-center mt-4">
+        <a asp-page="/Projects/Index" class="btn btn-primary btn-lg">Перейти к проектам</a>
+    </div>
+</div>
