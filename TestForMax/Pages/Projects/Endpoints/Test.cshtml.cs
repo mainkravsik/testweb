@@ -122,7 +122,9 @@ public class TestModel : PageModel
             
             // Читаем ответ
             ResponseBody = await response.Content.ReadAsStringAsync();
-            ResponseHeaders = response.Headers.ToDictionary(h => h.Key, h => h.Value);
+            ResponseHeaders = response.Headers
+                .Concat(response.Content.Headers)
+                .ToDictionary(h => h.Key, h => h.Value);
             StatusCode = (int)response.StatusCode;
             StatusMessage = response.StatusCode.ToString();
             HasResponse = true;

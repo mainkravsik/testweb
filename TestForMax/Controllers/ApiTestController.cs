@@ -80,11 +80,15 @@ public class ApiTestController : ControllerBase
             var responseBody = await response.Content.ReadAsStringAsync();
             
             // Формируем результат
+            var headers = response.Headers
+                .Concat(response.Content.Headers)
+                .ToDictionary(h => h.Key, h => h.Value);
+
             var result = new
             {
                 StatusCode = (int)response.StatusCode,
                 StatusMessage = response.StatusCode.ToString(),
-                Headers = response.Headers.ToDictionary(h => h.Key, h => h.Value),
+                Headers = headers,
                 Body = responseBody
             };
             
